@@ -15,12 +15,7 @@ mongoose.connect('mongodb://localhost/piDesk');
 
 var port = process.env.port || 8080;
 
-// Routes
-router.get('/', function(req, res) {
-  res.json({ message: 'Hello World'});
-});
-
-app.use('/api', router);
+app.use('/api', require('./routes/api'));
 
 // Start server
 app.listen(port);
