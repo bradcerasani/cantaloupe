@@ -20,5 +20,10 @@ router.route('/state')
     res.json(sampleResponse);
   });
 
+router.route('/preset')
+  .get(function(req, res){
+    res.json({ height: "93.67" });
+  });
+
 // Expose router
 module.exports = router;
