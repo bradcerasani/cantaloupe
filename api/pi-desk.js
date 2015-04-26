@@ -14,19 +14,43 @@ var config = {
   rate: 5
 };
 
+// Target desk height
+var targetHeight = 93;
+
+// Relay control
+var relayCom = gpio.createOutput(config.relayCom);
+var relayDir = gpio.createOutput(config.relayDir);
+
+// TO DO - refactor desk move functions into method lookup
+function deskUp() {
+  relayCom(false);
+  relayDir(true);
+}
+
+function deskDown() {
+  relayCom(false);
+  relayDir(false);
+}
+
+function deskStop() {
+  relayCom(true);
+  relayDir(true);
+}
+
 function print(distances) {
   var distance = statistics.median(distances);
 
-  process.stdout.clearLine();
-  process.stdout.cursorTo(0);
+  console.log(distance);
 
-  if (distance < 0) {
-    process.stdout.write('Error: Measurement timeout.');
+  // TO DO - add reasonable amount of variance for stop/start time
+  if (distance > targetHeight) {
+    deskDown();
   } else {
-    process.stdout.write('Distance: ' + distance.toFixed(2) + ' cm');
-  }
+    deskStop();
+  };
 };
 
+// TO DO - add programatic way to stop function
 function initSensor(config) {
   var sensor = usonic.createSensor(config.echoPin, config.triggerPin, config.timeout);
 
@@ -50,10 +74,3 @@ function initSensor(config) {
 };
 
 initSensor(config);
-
-// Relay control
-// var relayCom = gpio.createOutput(config.relayCom);
-// var relayDir = gpio.createOutput(config.relayDir);
-
-// relayCom(true);
-// relayDir(true);
