@@ -1,5 +1,3 @@
-'use strict';
-
 var gpio = require('r-pi-gpio');
 var usonic = require('r-pi-usonic');
 var statistics = require('math-statistics');
@@ -47,17 +45,17 @@ function print(distances) {
     deskDown();
   } else {
     deskStop();
-  };
-};
+  }
+}
 
 // TO DO - add programatic way to stop function
-function initSensor(config) {
-  var sensor = usonic.createSensor(config.echoPin, config.triggerPin, config.timeout);
+function initSensor(options) {
+  var sensor = usonic.createSensor(options.echoPin, options.triggerPin, options.timeout);
 
   var distances;
 
   (function measure() {
-    if (!distances || distances.length === config.rate) {
+    if (!distances || distances.length === options.rate) {
       if (distances) {
         print(distances);
       }
@@ -65,12 +63,12 @@ function initSensor(config) {
       distances = [];
     }
 
-    setTimeout(function () {
+    setTimeout(function() {
       distances.push(sensor());
 
-        measure();
-      }, config.delay);
+      measure();
+    }, options.delay);
   }());
-};
+}
 
 initSensor(config);
