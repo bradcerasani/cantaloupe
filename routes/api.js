@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var gpio = require('../lib/gpio');
 
 var State = require('../models/state');
 
