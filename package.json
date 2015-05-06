@@ -8,10 +8,10 @@
   "author": "bradcerasani.me",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.12.2",
+    "body-parser": "^1.12.3",
     "express": "^4.12.3",
     "math-statistics": "^1.2.0",
-    "mongoose": "^4.0.1",
+    "mongoose": "^4.0.2",
     "r-pi-gpio": "^2.2.3",
     "r-pi-usonic": "^2.4.1"
   }
